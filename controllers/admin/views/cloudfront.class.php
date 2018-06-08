@@ -78,14 +78,7 @@ class AdminViewCloudfront extends AdminViewBase
      */
     final public function help_tab()
     {
-        $data = array(
-            'name' => __('CloudFront Page Cache', 'o10n'),
-            'github' => 'https://github.com/o10n-x/wordpress-cloudfront-page-cache',
-            'wordpress' => 'https://wordpress.org/support/plugin/cf-page-cache',
-            'docs' => 'https://github.com/o10n-x/wordpress-cloudfront-page-cache/tree/master/docs'
-        );
-
-        return $data;
+        $this->AdminCloudfront->help_tab();
     }
 
     /**

@@ -135,6 +135,21 @@ class AdminCloudfront extends ModuleAdminController implements Module_Admin_Cont
     }
 
     /**
+     * Return help tab data
+     */
+    final public function help_tab()
+    {
+        $data = array(
+            'name' => __('CloudFront Page Cache', 'o10n'),
+            'github' => 'https://github.com/o10n-x/wordpress-cloudfront-page-cache',
+            'wordpress' => 'https://wordpress.org/support/plugin/cf-page-cache',
+            'docs' => 'https://github.com/o10n-x/wordpress-cloudfront-page-cache/tree/master/docs'
+        );
+
+        return $data;
+    }
+
+    /**
      * Show row meta on the plugin screen.
      */
     final public function plugin_row_meta($links, $file)
@@ -149,12 +164,18 @@ class AdminCloudfront extends ModuleAdminController implements Module_Admin_Cont
                 $lgcode = '';
             }
 
-            $row_meta = array(
-                'o10n_cloudfront_console' => '<a href="' . esc_url('https://console.aws.amazon.com/cloudfront/home') . '" target="_blank" title="' . esc_attr(__('CloudFront Console', 'o10n')) . '">' . __('CloudFront Console', 'o10n') . '</a>',
+            $row_meta = array();
 
-                'o10n_cloudfront_forum' => '<a href="' . esc_url('https://forums.aws.amazon.com/forum.jspa?forumID=46') . '" target="_blank" title="' . esc_attr(__('CloudFront Support Forum', 'o10n')) . '" style="font-weight:bold;color:#E47911;">' . __('AWS Support Forum', 'o10n') . '</a>'
-            );
+            $plugin_links = $this->help_tab();
 
+            if ($plugin_links && isset($plugin_links['github'])) {
+                $row_meta['o10n_version'] = '<a href="'.trailingslashit($plugin_links['github']).'releases/" target="_blank" title="' . esc_attr(__('View Version History', 'o10n')) . '" style=""><span class="dashicons dashicons-clock"></span> ' . __('Version History', 'o10n') . '</a>';
+            }
+
+            $row_meta['o10n_cloudfront_console'] = '<a href="' . esc_url('https://console.aws.amazon.com/cloudfront/home') . '" target="_blank" title="' . esc_attr(__('CloudFront Console', 'o10n')) . '">' . __('CloudFront Console', 'o10n') . '</a>';
+
+            $row_meta['o10n_cloudfront_forum'] = '<a href="' . esc_url('https://forums.aws.amazon.com/forum.jspa?forumID=46') . '" target="_blank" title="' . esc_attr(__('CloudFront Support Forum', 'o10n')) . '" style="font-weight:bold;color:#E47911;">' . __('AWS Support Forum', 'o10n') . '</a>';
+            
             return array_merge($links, $row_meta);
         }
 
