@@ -392,7 +392,7 @@ class AdminCloudfrontinvalidation extends ModuleAdminController implements Modul
             return;
         }
 
-        if (class_exists('autoptimizeCache')) {
+        if (class_exists('\autoptimizeCache')) {
             \autoptimizeCache::clearall();
         }
 
@@ -411,16 +411,16 @@ class AdminCloudfrontinvalidation extends ModuleAdminController implements Modul
             w3tc_pgcache_flush();
         } elseif (function_exists('wp_fast_cache_bulk_delete_all')) {
             wp_fast_cache_bulk_delete_all(); // still to retest
-        } elseif (class_exists("WpFastestCache")) {
+        } elseif (class_exists("\WpFastestCache")) {
             $wpfc = new WpFastestCache();
             $wpfc->deleteCache();
-        } elseif (class_exists("c_ws_plugin__qcache_purging_routines")) {
+        } elseif (class_exists("\c_ws_plugin__qcache_purging_routines")) {
             c_ws_plugin__qcache_purging_routines::purge_cache_dir(); // quick cache, still to retest
-        } elseif (class_exists("zencache")) {
+        } elseif (class_exists("\zencache")) {
             zencache::clear();
-        } elseif (class_exists("comet_cache")) {
+        } elseif (class_exists("\comet_cache")) {
             comet_cache::clear();
-        } elseif (class_exists("WpeCommon")) {
+        } elseif (class_exists("\WpeCommon")) {
             if (apply_filters('autoptimize_flush_wpengine_aggressive', false)) {
                 if (method_exists("WpeCommon", "purge_memcached")) {
                     WpeCommon::purge_memcached();
