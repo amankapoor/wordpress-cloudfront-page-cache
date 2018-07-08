@@ -57,6 +57,20 @@ class Cloudfront extends Controller implements Controller_Interface
             return;
         }
 
+        // setup on WordPress init hook
+        add_action('init', array($this, 'init_setup'), PHP_INT_MAX);
+    }
+
+    /**
+     * Setup controller on WordPress init
+     */
+    final public function init_setup()
+    {
+        // verify if page cache is enabled
+        if (!$this->options->bool('cloudfront.enabled')) {
+            return;
+        }
+
         // configure CloudFront hosts
         $this->public_host = $this->options->get('cloudfront.host');
         $this->origin_host = $this->options->get('cloudfront.origin');
